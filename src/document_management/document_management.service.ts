@@ -8,6 +8,12 @@ export class DocumentManagementService {
   constructor(@InjectRepository(DocumentManagement)
   private readonly documentRepository: Repository<DocumentManagement>){}
 
+  /**
+   * Purpose : Upload document logic
+   * @param body 
+   * @param file 
+   * @returns 
+   */
   async createDocument(body: { title: string; description: string }, file: Express.Multer.File) {
     const newDocument = this.documentRepository.create({
       title: body.title,
@@ -17,10 +23,20 @@ export class DocumentManagementService {
     return this.documentRepository.save(newDocument);
   }
 
+  /**
+   * Purpose : Find all the doucment logic
+   * @returns 
+   */
   async findAllDocuments() {
     return this.documentRepository.find();
   }
 
+  /**
+   * Purpose : Update document logic
+   * @param id 
+   * @param body 
+   * @returns 
+   */
   async updateDocument(id: number, body: { title?: string; description?: string }) {
     const document = await this.documentRepository.findOne({ where: { id } });
     if (!document) {
@@ -32,6 +48,11 @@ export class DocumentManagementService {
     return this.documentRepository.save(document);
   }
 
+  /**
+   * Purpose : Delete document logic
+   * @param id 
+   * @returns 
+   */
   async deleteDocument(id: number) {
     return this.documentRepository.delete(id);
   }

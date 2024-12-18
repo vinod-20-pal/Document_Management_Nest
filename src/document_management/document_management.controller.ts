@@ -10,6 +10,12 @@ import { UserRole } from './dto/create-document_management.dto';
 export class DocumentManagementController {
   constructor(private readonly documentManagementService: DocumentManagementService) {}
 
+  /**
+   * Purpose: Upload document
+   * @param body 
+   * @param file 
+   * @returns 
+   */
   @Post('upload')
   @Roles(UserRole.EDITOR, UserRole.ADMIN)
   @UseInterceptors(FileInterceptor('file'))
@@ -20,12 +26,22 @@ export class DocumentManagementController {
     return this.documentManagementService.createDocument(body, file);
   }
 
+  /**
+   * Purpose : Find all the document
+   * @returns 
+   */
   @Get()
   @Roles(UserRole.VIEWER, UserRole.EDITOR, UserRole.ADMIN)
   async findAllDocuments() {
     return this.documentManagementService.findAllDocuments();
   }
 
+  /**
+   * Purpose : Update document
+   * @param id 
+   * @param body 
+   * @returns 
+   */
   @Patch('update/:id')
   @Roles(UserRole.EDITOR, UserRole.ADMIN)
   async updateDocument(
@@ -35,6 +51,11 @@ export class DocumentManagementController {
     return this.documentManagementService.updateDocument(id, body);
   }
 
+  /**
+   * Purpose : Delete document
+   * @param id 
+   * @returns 
+   */
   @Delete('delete/:id')
   @Roles(UserRole.ADMIN)
   async deleteDocument(@Param('id') id: number) {

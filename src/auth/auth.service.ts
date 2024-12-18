@@ -17,6 +17,11 @@ export class AuthService {
   @InjectRepository(StoreToken)
   private readonly tokenRepository: Repository<StoreToken>){}
 
+  /**
+   * Purpose : Register user logic
+   * @param registerAuthDto 
+   * @returns 
+   */
   async register(registerAuthDto: RegisterDto) {
     const { email, password, role} = registerAuthDto;
 
@@ -29,6 +34,11 @@ export class AuthService {
     return this.authRepository.save(user);
   }
 
+  /**
+   * Purpose : Login user logic
+   * @param loginAuthDto 
+   * @returns 
+   */
   async login(loginAuthDto: LoginDto): Promise<any> {
     const { email, password } = loginAuthDto;
   
@@ -60,6 +70,11 @@ export class AuthService {
   }
   
 
+  /**
+   * Purpose: Logout user logic
+   * @param token 
+   * @returns 
+   */
   async logout(token:any) {
     const storeToken = this.tokenRepository.create({ token });
     await this.tokenRepository.save(storeToken);
@@ -70,6 +85,11 @@ export class AuthService {
     };
   }
 
+  /**
+   * Purpose : Find user token
+   * @param token 
+   * @returns 
+   */
   async isTokenStored(token: string): Promise<boolean> {
     const storeToken = await this.tokenRepository.findOne({ where: { token } });
     return !!storeToken;

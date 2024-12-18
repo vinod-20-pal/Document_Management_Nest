@@ -10,6 +10,12 @@ export class UserService {
   constructor(@InjectRepository(Auth)
   private readonly userRepository: Repository<Auth>) {}
 
+  /**
+   * Purpose : Update user role and permission logic
+   * @param id 
+   * @param role 
+   * @returns 
+   */
   async updateRole(id: number, role: string) {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {

@@ -8,6 +8,11 @@ import { JwtAuthGuard } from '../guard/jwt-guard/jwt-auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  /**
+   * Purpose: Register User
+   * @param registerAuthDto 
+   * @returns 
+   */
   @Post('register')
   async register(@Body() registerAuthDto: RegisterDto) {
     try {
@@ -17,6 +22,11 @@ export class AuthController {
     }
   }
 
+  /**
+   * Purpose: Login User
+   * @param loginAuthDto 
+   * @returns 
+   */
   @Post('login')
   login(@Body() loginAuthDto: LoginDto) {
     try {
@@ -26,6 +36,11 @@ export class AuthController {
     }
   }
 
+  /**
+   * Purpose: logout User
+   * @param req 
+   * @returns 
+   */
   @Post('logout')
   @UseGuards(JwtAuthGuard)
   async logout(@Req() req: any) {

@@ -10,6 +10,12 @@ import { JwtAuthGuard } from 'src/guard/jwt-guard/jwt-auth.guard';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  /**
+   * Purpose : Update user role and permission
+   * @param id 
+   * @param role 
+   * @returns 
+   */
   @Patch(':id/role')
   async updateRole(@Param('id') id: number, @Body('role') role: string) {
     return this.userService.updateRole(id, role);
